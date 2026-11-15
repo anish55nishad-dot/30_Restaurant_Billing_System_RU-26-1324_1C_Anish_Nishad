@@ -1,0 +1,86 @@
+menu = {
+    "Dosa": 80,
+    "Idli": 40,
+    "Thali": 150,
+    "Tea": 20
+}
+
+order = []
+
+print("===== RESTAURANT BILLING SYSTEM =====")
+
+print("\nMenu:")
+print("Dosa  - Rs.80")
+print("Idli  - Rs.40")
+print("Thali - Rs.150")
+print("Tea   - Rs.20")
+
+
+while True:
+
+    item = input("\nEnter item name: ").title()
+
+    if item in menu:
+
+        quantity = input("Enter quantity: ")
+
+        if quantity.isdigit():
+
+            quantity = int(quantity)
+
+            if quantity > 0:
+                order.append([item, quantity])
+                print("Item added successfully")
+            else:
+                print("Quantity must be greater than 0")
+
+        else:
+            print("Please enter a valid quantity")
+
+    else:
+        print("Item not available")
+
+    choice = input("Do you want to order more? (yes/no): ")
+
+    if choice.lower() != "yes":
+        break
+
+
+subtotal = 0
+
+for item in order:
+    price = menu[item[0]]
+    subtotal = subtotal + price * item[1]
+
+
+if subtotal > 500:
+    discount = subtotal * 10 / 100
+else:
+    discount = 0
+
+
+amount = subtotal - discount
+gst = amount * 5 / 100
+
+total = amount + gst
+
+
+# Printing final bill
+
+print("\n========== FINAL BILL ==========")
+
+for item in order:
+    price = menu[item[0]]
+    quantity = item[1]
+
+    print(item[0], "x", quantity, "=", price * quantity)
+
+print("--------------------------------")
+print("Subtotal      : Rs.", subtotal)
+print("Discount      : Rs.", discount)
+print("GST (5%)      : Rs.", gst)
+print("--------------------------------")
+print("Grand Total   : Rs.", total)
+
+print("================================")
+print("Thank You! Visit Again")
